@@ -31,7 +31,7 @@
             translate: -50% -50%;
         }
         #copied {
-            box-shadow: 0 2px 5px darkorchid;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
             background: springgreen;
             color: black;
             border-radius: .5em;
@@ -45,6 +45,7 @@
         @media not all and (prefers-reduced-motion) {
             #copied {
                 transition: all linear 0.1s;
+                transition-property: visibility, translate;
             }
         }
         @media (max-width: 1000px) {
@@ -105,12 +106,17 @@
     </div>
     <div id="copied" hidden>Copied!</div>
     <script>
+        let timeout = null;
         for (let swatch of document.querySelectorAll(".color")) {
             swatch.addEventListener("click", () => {
+                if (timeout)
+                    clearTimeout(timeout);
                 let copied = document.querySelector("#copied");
                 copied.hidden = false;
+                copied.style.backgroundColor = swatch.style.backgroundColor;
+                copied.style.color = swatch.style.color;
                 navigator.clipboard.writeText(swatch.querySelector(".color-name").textContent);
-                setTimeout(() => {
+                timeout = setTimeout(() => {
                     copied.hidden = true;
                 }, 1000);
             });
