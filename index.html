@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unpopular colors</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Menlo, monospace;
+            height: 100vh;
+        }
+        #color-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            height: 100%;
+        }
+        .color {
+            text-align: center;
+            font-size: 1.1em;
+            padding-top: 1em;
+            cursor: pointer;
+        }
+        #intro {
+            grid-row: span 3;
+            padding-inline-start: .5em;
+        }
+        #copied[hidden] {
+            display: block;
+            visibility: hidden;
+            translate: -50% -50%;
+        }
+        #copied {
+            box-shadow: 0 2px 5px darkorchid;
+            background: springgreen;
+            color: black;
+            border-radius: .5em;
+            display: inline-block;
+            position: fixed;
+            top: 1em;
+            left: 50%;
+            translate: -50%;
+            padding: 1em;
+        }
+        @media not all and (prefers-reduced-motion) {
+            #copied {
+                transition: all linear 0.1s;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="color-grid">
+        <div id="intro">
+            <h1>Unpopular colors</h1>
+            <p>Click to copy a color</p>
+        </div>
+        <div class="color" style="background: mediumspringgreen;">
+            <div class="color-name">mediumspringgreen</div>
+        </div>
+        <div class="color" style="background: darksalmon;">
+            <div class="color-name">darksalmon</div>
+        </div>
+        <div class="color" style="background: mediumorchid; color: white;">
+            <div class="color-name">mediumorchid</div>
+        </div>
+        <div class="color" style="background: darkorchid; color: white;">
+            <div class="color-name">darkorchid</div>
+        </div>
+        <div class="color" style="background: mediumslateblue; color: white;">
+            <div class="color-name">mediumslateblue</div>
+        </div>
+        <div class="color" style="background: lavenderblush;">
+            <div class="color-name">lavenderblush</div>
+        </div>
+        <div class="color" style="background: rosybrown; color: white">
+            <div class="color-name">rosybrown</div>
+        </div>
+        <div class="color" style="background: moccasin;">
+            <div class="color-name">moccasin</div>
+        </div>
+        <div class="color" style="background: springgreen;">
+            <div class="color-name">springgreen</div>
+        </div>
+        <div class="color" style="background: thistle;">
+            <div class="color-name">thistle</div>
+        </div>
+    </div>
+    <div id="copied" hidden>Copied!</div>
+    <script>
+        for (let swatch of document.querySelectorAll(".color")) {
+            swatch.addEventListener("click", () => {
+                let copied = document.querySelector("#copied");
+                copied.hidden = false;
+                navigator.clipboard.writeText(swatch.querySelector(".color-name").textContent);
+                setTimeout(() => {
+                    copied.hidden = true;
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+</html>
