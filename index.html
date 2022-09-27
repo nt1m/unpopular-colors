@@ -46,6 +46,23 @@
                 transition: all linear 0.1s;
             }
         }
+        @media (max-width: 1000px) {
+            #color-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            #intro {
+                grid-row: 1;
+                grid-column: span 3;
+            }
+        }
+        @media (max-width: 600px) {
+            #color-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            #intro {
+                grid-column: span 2;
+            }
+        }
     </style>
 </head>
 <body>
